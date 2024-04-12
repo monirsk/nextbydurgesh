@@ -15,13 +15,19 @@ const CustomNavbar = () => {
         <ul className="flex space-x-4">
           <li>
             {" "}
-            <Link href={"/"}>Home</Link>
+            <Link href={"/"} className="hover:text-orange-400">
+              Home
+            </Link>
           </li>
           <li>
-            <Link href={"/add-task"}>Add Task</Link>
+            <Link href={"/add-task"} className="hover:text-orange-400">
+              Add Task
+            </Link>
           </li>
           <li>
-            <Link href={"/"}>Show Tasks</Link>
+            <Link href={"/show-tasks"} className="hover:text-orange-400">
+              Show Tasks
+            </Link>
           </li>
         </ul>
       </div>
@@ -29,10 +35,14 @@ const CustomNavbar = () => {
         <ul className="flex space-x-4">
           <li>
             {" "}
-            <Link href={"/"}>Login</Link>
+            <Link href={"/"} className="hover:text-orange-400">
+              Login
+            </Link>
           </li>
           <li>
-            <Link href={"/"}>Signup</Link>
+            <Link href={"/"} className="hover:text-orange-400">
+              Signup
+            </Link>
           </li>
         </ul>
       </div>

@@ -4,7 +4,7 @@ export const metadata = {
 };
 
 const AddTask = () => {
-  return <div>page</div>;
+  return <div>Add Task page</div>;
 };
 
 export default AddTask;
