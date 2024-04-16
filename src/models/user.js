@@ -1,6 +1,9 @@
 import mongoose, { Schema } from "mongoose";
 const UserSchema = new Schema({
-  name: String,
+  name: {
+    type: String,
+    required: [true, "Name can not be blank"],
+  },
   email: {
     type: String,
     required: [true, "Email is Required !! "],

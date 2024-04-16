@@ -18,9 +18,16 @@ const Signup = () => {
 
   const handleAddUser = async (event) => {
     event.preventDefault();
-    console.log("This is what u enttered in the form shihab: ", user);
 
-    // validate form data
+    //validation
+    if (user.name.trim() === "" || user.name == null) {
+      toast.warning("Name is required", {
+        position: "top-center",
+      });
+      return;
+    }
+
+    console.log("This is what u enttered in the form shihab: ", user);
 
     try {
       const result = await addUser(user);

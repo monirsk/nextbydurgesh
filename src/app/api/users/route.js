@@ -35,6 +35,21 @@ export function DELETE(request) {
 
 export async function POST(request) {
   const { name, email, password, about, profileURL } = await request.json();
+
+  // Check if username already exists
+  // const existingUser = await User.findOne({ name });
+  // if (existingUser) {
+  //   return NextResponse.json(
+  //     {
+  //       message: "Username already exists",
+  //       status: false,
+  //     },
+  //     {
+  //       status: 400, // Bad Request status code
+  //     }
+  //   );
+  // }
+
   //now create user object with the help of user model
 
   const user = new User({
@@ -52,9 +67,14 @@ export async function POST(request) {
     return response;
   } catch (error) {
     console.log("There is an error" + error);
-    return NextResponse.json({
-      message: "Failed to create user.",
-      status: false,
-    });
+    return NextResponse.json(
+      {
+        message: "Failed to create user.",
+        status: false,
+      },
+      {
+        status: 500,
+      }
+    );
   }
 }
