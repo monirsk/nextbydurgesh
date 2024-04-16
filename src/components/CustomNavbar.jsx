@@ -5,7 +5,7 @@ import React from "react";
 
 const CustomNavbar = () => {
   return (
-    <nav className="bg-blue-900 h-12 py-2 px-36 flex justify-between items-center text-white">
+    <nav className="bg-primary h-12 py-2 px-36 flex justify-between items-center text-white">
       <div className="brand">
         <h1 className="text-2xl font-semibold">
           <Link href={"/"}>ToDo</Link>

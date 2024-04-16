@@ -1,11 +1,49 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 
 import signUpsvg from "@/assets/signupImage.svg";
 import Image from "next/image";
+import { addUser } from "@/services/userService";
+import { toast } from "react-toastify";
 
 const Signup = () => {
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+    about: "",
+    profileURL: "abcder",
+  });
+
+  const handleAddUser = async (event) => {
+    event.preventDefault();
+    console.log("This is what u enttered in the form shihab: ", user);
+
+    // validate form data
+
+    try {
+      const result = await addUser(user);
+      console.log("This is what response data server send: ", user);
+      toast.success("User is added", {
+        position: "top-center",
+      });
+
+      setUser({
+        name: "",
+        email: "",
+        password: "",
+        about: "",
+        profileURL: "abcdr",
+      });
+    } catch (error) {
+      console.log(error);
+      toast.error("Error in adding user", {
+        position: "top-center",
+      });
+    }
+  };
+
   return (
     <div className="grid grid-cols-12">
       <div className="col-span-3 col-start-5 bg-signupColor p-4 rounded-2xl shadow shadow-blue-900">
@@ -19,7 +57,7 @@ const Signup = () => {
 
         <div className="">
           <h1 className="text-3xl text-center text-white">Signup</h1>
-          <form action="" className="mt-5">
+          <form action="" className="mt-5" onSubmit={handleAddUser}>
             {/* name */}
             <div className="mt-3">
               <label
@@ -33,6 +71,11 @@ const Signup = () => {
                 id="user_name"
                 className="p-2 w-full rounded-2xl outline-none focus:ring-2"
                 placeholder="Enter your name"
+                name="user_name"
+                onChange={(event) => {
+                  setUser({ ...user, name: event.target.value });
+                }}
+                value={user.name}
               />
             </div>
 
@@ -49,6 +92,11 @@ const Signup = () => {
                 id="user_email"
                 className="p-2 w-full rounded-2xl outline-none focus:ring-2"
                 placeholder="Enter your email"
+                name="user_email"
+                onChange={(event) => {
+                  setUser({ ...user, email: event.target.value });
+                }}
+                value={user.email}
               />
             </div>
 
@@ -65,6 +113,11 @@ const Signup = () => {
                 id="user_password"
                 className="p-2 w-full rounded-2xl outline-none focus:ring-2"
                 placeholder="Enter your password"
+                name="user_password"
+                onChange={(event) => {
+                  setUser({ ...user, password: event.target.value });
+                }}
+                value={user.password}
               />
             </div>
 
@@ -81,13 +134,24 @@ const Signup = () => {
                 className="p-2 w-full rounded-2xl outline-none focus:ring-2"
                 placeholder="About"
                 rows={6}
+                name="user_about"
+                onChange={(event) => {
+                  setUser({ ...user, about: event.target.value });
+                }}
+                value={user.about}
               ></textarea>
             </div>
             <div className="mt-3 flex justify-center gap-2">
-              <button className="bg-primary py-2 px-3 rounded-lg hover:bg-blue-900 text-white ">
+              <button
+                type="submit"
+                className="bg-primary py-2 px-3 rounded-lg hover:bg-blue-900 text-white "
+              >
                 Signup
               </button>
-              <button className="bg-orange-700 py-2 px-3 rounded-lg hover:bg-orange-600 text-white">
+              <button
+                type="button"
+                className="bg-orange-700 py-2 px-3 rounded-lg hover:bg-orange-600 text-white"
+              >
                 Reset
               </button>
             </div>

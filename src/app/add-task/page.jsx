@@ -134,10 +134,24 @@ const AddTask = () => {
           {/* button action */}
 
           <div className="mt-4 flex justify-center">
-            <button className="bg-blue-600 py-2 px-3 rounded-lg hover:bg-blue-900 text-white">
+            <button
+              type="submit"
+              className="bg-blue-600 py-2 px-3 rounded-lg hover:bg-blue-900 text-white"
+            >
               Add Task
             </button>
-            <button className="bg-red-600 py-2 px-3 rounded-lg hover:bg-red-900 text-white ms-4">
+            <button
+              type="button"
+              className="bg-red-600 py-2 px-3 rounded-lg hover:bg-red-900 text-white ms-4"
+              onClick={() => {
+                setTask({
+                  title: "",
+                  content: "",
+                  status: "none",
+                  userid: "65f7d2de01be6e8fd1a08590",
+                });
+              }}
+            >
               Clear
             </button>
           </div>
