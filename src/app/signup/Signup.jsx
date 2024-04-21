@@ -51,6 +51,16 @@ const Signup = () => {
     }
   };
 
+  const resetForm = () => {
+    setUser({
+      name: "",
+      email: "",
+      password: "",
+      about: "",
+      profileURL: "abcdr",
+    });
+  };
+
   return (
     <div className="grid grid-cols-12">
       <div className="col-span-3 col-start-5 bg-signupColor p-4 rounded-2xl shadow shadow-blue-900">
@@ -157,6 +167,7 @@ const Signup = () => {
               </button>
               <button
                 type="button"
+                onClick={resetForm}
                 className="bg-orange-700 py-2 px-3 rounded-lg hover:bg-orange-600 text-white"
               >
                 Reset
