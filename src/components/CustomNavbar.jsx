@@ -35,7 +35,7 @@ const CustomNavbar = () => {
         <ul className="flex space-x-4">
           <li>
             {" "}
-            <Link href={"/"} className="hover:text-orange-400">
+            <Link href={"/login"} className="hover:text-orange-400">
               Login
             </Link>
           </li>
