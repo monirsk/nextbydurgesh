@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import CustomNavbar from "@/components/CustomNavbar";
 import Footer from "@/components/Footer";
 import { ToastContainer } from "react-toastify";
+import TanstackProvider from "../../provider/TanstackProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,8 +20,9 @@ export default function RootLayout({ children }) {
         <ToastContainer></ToastContainer>
         <CustomNavbar></CustomNavbar>
 
-        <div className="mt-2">{children}</div>
-
+        <TanstackProvider>
+          <div className="mt-2">{children}</div>
+        </TanstackProvider>
         <Footer></Footer>
       </body>
     </html>
