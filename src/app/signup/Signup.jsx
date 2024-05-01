@@ -1,11 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-
-import signUpsvg from "@/assets/signupImage.svg";
 import Image from "next/image";
-import { addUser } from "@/services/userService";
 import { toast } from "react-toastify";
+import { useMutation } from "@tanstack/react-query";
+import signUpsvg from "@/assets/signupImage.svg";
+import { addUser } from "@/services/userService";
 
 const Signup = () => {
   const [user, setUser] = useState({
@@ -16,39 +16,43 @@ const Signup = () => {
     profileURL: "abcder",
   });
 
-  const handleAddUser = async (event) => {
-    event.preventDefault();
+  // Defining Mutation functionality
+  const mutation = useMutation({
+    mutationFn: async (newUser) => {
+      const data = await addUser(newUser);
 
-    //validation
-    if (user.name.trim() === "" || user.name == null) {
-      toast.warning("Name is required", {
-        position: "top-center",
-      });
-      return;
-    }
-
-    console.log("This is what u enttered in the form shihab: ", user);
-
-    try {
-      const result = await addUser(user);
-      console.log("This is what response data server send: ", user);
-      toast.success("User is added", {
-        position: "top-center",
-      });
-
+      return data;
+    },
+    onSuccess: () => {
+      toast.success("User created successfully", { position: "top-center" });
+      // Reset the form after successful user creation
       setUser({
         name: "",
         email: "",
         password: "",
         about: "",
-        profileURL: "abcdr",
+        profileURL: "abcder",
       });
-    } catch (error) {
-      console.log(error);
-      toast.error("Error in adding user", {
+    },
+    onError: (error) => {
+      toast.error("Error creating user: " + error.message, {
         position: "top-center",
       });
+    },
+  });
+
+  const handleAddUser = async (event) => {
+    event.preventDefault();
+
+    // Validation
+    if (user.name.trim() === "" || user.name == null) {
+      toast.warning("Name is required", { position: "top-center" });
+      return;
     }
+
+    // Calling  the mutation function to add the user
+    //it will trigger useMutation()
+    mutation.mutate(user);
   };
 
   const resetForm = () => {

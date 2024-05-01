@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-import { useQuery, useIsFetching } from "@tanstack/react-query";
+import { useQuery, useIsFetching, useMutation } from "@tanstack/react-query";
 
 // export const metadata = {
 //   title: "Show tasks",
@@ -16,10 +16,19 @@ const ShowTasks = () => {
     queryKey: ["todos"],
     queryFn: async () => {
       const response = await fetch(
-        "https://jsonplaceholder.typicode.com/todos"
+        "https://jsonplaceholder.typicode.com/posts"
       );
       const data = await response.json();
       return data;
+    },
+  });
+
+  const { mutate, isPending, isSuccess } = useMutation({
+    mutationFn: (newPost) => {
+      fetch("https://jsonplaceholder.typicode.com/posts", {
+        method: "POST",
+        body: JSON.stringify(newPost),
+      }).then((res) => res.json());
     },
   });
 
@@ -40,18 +49,33 @@ const ShowTasks = () => {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1 className="text-xl">TODOS</h1>
-      <div className="flex flex-col gap-2">
-        {todoData?.map((todo) => {
-          return (
-            <div className="flex" key={todo.id}>
-              <h2>{todo.title}</h2>
-            </div>
-          );
-        })}
-      </div>
-    </main>
+    <>
+      <button
+        onClick={() =>
+          mutate({
+            userId: 5000,
+            id: 4000,
+            title: "Shihab",
+            body: "Vivasoft",
+          })
+        }
+        className="bg-primary p-2 rounded m-4 text-white"
+      >
+        Add Post
+      </button>
+      <main className="flex min-h-screen flex-col items-center justify-between p-16">
+        <h1 className="text-3xl text-primary font-bold mb-20">TODOS</h1>
+        <div className="flex flex-col gap-2">
+          {todoData?.slice(0, 20).map((todo) => {
+            return (
+              <div className="flex border border-blue-200" key={todo.id}>
+                <h2 className="capitalize">Title: {todo.title}</h2>
+              </div>
+            );
+          })}
+        </div>
+      </main>
+    </>
   );
 };
 

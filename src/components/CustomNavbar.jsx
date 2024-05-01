@@ -25,8 +25,8 @@ const CustomNavbar = () => {
             </Link>
           </li>
           <li>
-            <Link href={"/show-tasks"} className="hover:text-orange-400">
-              Show Tasks
+            <Link href={"/show-user"} className="hover:text-orange-400">
+              Show User
             </Link>
           </li>
         </ul>
