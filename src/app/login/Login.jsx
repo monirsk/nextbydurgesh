@@ -1,13 +1,16 @@
 "use client";
+import { login } from "@/services/userService";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 const Login = () => {
+  const router = useRouter();
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
 
-  const loginFormSubmitted = (event) => {
+  const loginFormSubmitted = async (event) => {
     event.preventDefault();
 
     if (loginData.email.trim() === "" || loginData.password.trim() === "") {
@@ -16,6 +19,27 @@ const Login = () => {
       });
       return;
     }
+
+    try {
+      const result = await login(loginData);
+      console.log(result);
+      toast.success("Logged in");
+
+      //redirecting after login
+      router.push("profile/user");
+    } catch (error) {
+      console.log(error);
+      const errorMessage =
+        error?.response?.data?.message || "An error occurred";
+      toast.error(errorMessage, { position: "top-center" });
+    }
+  };
+
+  const ResetForm = () => {
+    setLoginData({
+      email: "",
+      password: "",
+    });
   };
 
   return (
@@ -76,6 +100,7 @@ const Login = () => {
             </button>
             <button
               type="button"
+              onClick={ResetForm}
               className="bg-orange-700 py-2 px-3 rounded-lg hover:bg-orange-600 text-white"
             >
               Reset
