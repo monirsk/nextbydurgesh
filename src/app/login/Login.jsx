@@ -1,10 +1,14 @@
+// stoppped at 10.10 of episode 27
+
 "use client";
+import UserContext from "@/context/userContext";
 import { login } from "@/services/userService";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { toast } from "react-toastify";
 const Login = () => {
   const router = useRouter();
+  const context = useContext(UserContext);
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -26,6 +30,9 @@ const Login = () => {
       toast.success("Logged in");
 
       //redirecting after login
+
+      context.setUser(result.user);
+
       router.push("profile/user");
     } catch (error) {
       console.log(error);

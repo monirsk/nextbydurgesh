@@ -1,11 +1,24 @@
 "use client";
 
 import UserContext from "@/context/userContext";
+import { logout } from "@/services/userService";
 import Link from "next/link";
 import React, { useContext } from "react";
+import { toast } from "react-toastify";
 
 const CustomNavbar = () => {
   const context = useContext(UserContext);
+
+  async function doLogout() {
+    try {
+      const result = await logout();
+      console.log(result);
+      context.setUser(undefined);
+    } catch (error) {
+      console.log(error);
+      toast.error("Error in logging out");
+    }
+  }
 
   return (
     <nav className="bg-primary h-12 py-2 px-36 flex justify-between items-center text-white">
@@ -43,7 +56,7 @@ const CustomNavbar = () => {
           {context.user && (
             <>
               <li> {context.user.name}</li>
-              <li>Logout</li>
+              <button onClick={doLogout}>Logout</button>
             </>
           )}
 
