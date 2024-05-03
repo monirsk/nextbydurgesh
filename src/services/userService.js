@@ -13,3 +13,10 @@ export async function login(loginData) {
     .then((response) => response.data);
   return result;
 }
+
+export async function currentUser() {
+  const result = await httpAxios
+    .get("api/currentUser")
+    .then((response) => response.data);
+  return result;
+}

@@ -1,5 +1,8 @@
-const { createContext } = require("react");
+"use client";
+import { createContext } from "react";
 
 const UserContext = createContext({});
 
 export default UserContext;
+
+//start from 8.50
